@@ -108,13 +108,13 @@ void mergeAscending(T array1[], size_t sizeArray1, T array2[], size_t sizeArray2
 template <typename T>
 void mergeSort(T input[], size_t left, size_t right, T* output) {
   if((right - left) == 0) output[0] = input[left];
-  else if((right - left -1) > 1) {
+  else if((right - left + 1) > 1) {
     size_t mid = (left+right - 1)/2;
-    T leftArray[mid - 1 - left];
-    T rightArray[right - mid];
-    mergeSort(input,left,mid -1,leftArray);
-    mergeSort(input,mid,right,rightArray);
-    mergeAscending(leftArray,mid - 1 - left,rightArray,right - mid,output);
+    T leftArray[mid - left];
+    T rightArray[right - mid + 1];
+    mergeSort(input,left,mid,leftArray);
+    mergeSort(input,mid+1,right,rightArray);
+    mergeAscending(leftArray,mid - left,rightArray,right - mid + 1,output);
   }
 }
 
