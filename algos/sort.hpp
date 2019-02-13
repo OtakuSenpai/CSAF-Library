@@ -85,29 +85,16 @@ void selectionSortDescending(T array[], size_t size) {
     for(size_t j = temp + 1; j < size; j++) {
       if(array[j] > array[temp]) {
         temp = j;
+      }
+      swapArray(array,array[i],array[temp]);
     }
-    swapArray(array,array[i],array[temp]);
   }
 }
 
 template <typename T>
-void mergeSort(T input[], size_t left, size_t right, T output[]) {
-  if((right - left) == 1) output[0] = input[left];
-  else if(right - left > 1) {
-    size_t mid = (left+right)/2;
-    T leftArray[(mid-1) - left];
-    T rightArray[right - mid];
-    mergeSort(input,left,mid-1,leftArray);
-    mergeSort(input,mid,right,rightArray);
-    mergeAscending(leftArray,(mid-1) - left,rightArray,right - mid,output);
-  }
-}
-
-template <typename T>
-T[] mergeAscending(T array1[], size_t sizeArray1, T array2[], size_t sizeArray2, T total[]) {
-  size_t totalSize = sizeArray1 + sizeArray2;
-  size_t i,j,k;
-  while( k < i + j && k <= totalSize ) {
+void mergeAscending(T array1[], size_t sizeArray1, T array2[], size_t sizeArray2,T* total) {
+  size_t i = 0,j = 0,k;
+  while( k < sizeArray1 + sizeArray2) {
     if(sizeArray1 == i || array1[i] <= array2[j]) {
       total[k] = array1[i];
       j++; k++;
@@ -116,7 +103,19 @@ T[] mergeAscending(T array1[], size_t sizeArray1, T array2[], size_t sizeArray2,
       i++; k++;
     }
   }
-
-  return total;
 }
+
+template <typename T>
+void mergeSort(T input[], size_t left, size_t right, T* output) {
+  if((right - left) == 0) output[0] = input[left];
+  else if((right - left -1) > 1) {
+    size_t mid = (left+right - 1)/2;
+    T leftArray[mid - 1 - left];
+    T rightArray[right - mid];
+    mergeSort(input,left,mid -1,leftArray);
+    mergeSort(input,mid,right,rightArray);
+    mergeAscending(leftArray,mid - 1 - left,rightArray,right - mid,output);
+  }
+}
+
 #endif

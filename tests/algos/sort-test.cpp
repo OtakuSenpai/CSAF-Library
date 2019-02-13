@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "../../algos/sort.hpp"
 
 using namespace std;
@@ -12,7 +14,6 @@ int main() {
 
   for(int i = 0; i < 9; i++)
     cout << output[i] << " ";
-
+  cout << endl;
   return 0;
-}
 }
